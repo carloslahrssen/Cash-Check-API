@@ -1,9 +1,9 @@
 const express = require('express');
 const app = express();
+// const router = app.Router();
 const mongoose = require('mongoose');
 const plaid = require('plaid');
 const config = require('./config');
-
 //Initial Connection to the database
 mongoose.connect('mongodb://fsuhacks_database_1/plaid');
 //Initializing plaid API
@@ -12,9 +12,14 @@ const plaidClient = new plaid.Client(config.CLIENT_ID, config.SECRET, config.PUB
 const PORT = 3000;
 const HOST = '0.0.0.0';
 
-app.get('/', (req, res) => {
-	res.send("Success Motherfucker");
-});
+const group = require('./routers/group');
+const users = require('./routers/users');
+const index = require('./routers/index')
 
-app.listen(PORT, HOST);
-console.log(`Running on http://${HOST}:${PORT}`);
+app.use(index);
+app.use(group);
+app.use(users);
+
+app.listen(PORT, () => {
+console.log("Listening ..");
+});
