@@ -14,10 +14,11 @@ router.get('/users/', (req, res)=> {
 router.get('/users/getUser/:_group_id', (req,res)=>{
 	let group_id = req.params._group_id;
 
-	user.getUserByGroupId(group_id, (err, users) => {
-		if(err) res.json(err);
+	user.getUserByGroupId(group_id)
+	.then((users) => {
 		res.json(users);
-	});
+	})
+	.catch(err => err);
 
 });
 
