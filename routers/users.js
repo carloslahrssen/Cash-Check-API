@@ -21,7 +21,6 @@ router.get('/users/getUser/:_group_id', (req,res)=>{
 
 });
 
-console.log("I exist");
 router.post('/users/createUser', (req, res)=>{
 	let users = [];
 	
@@ -29,7 +28,6 @@ router.post('/users/createUser', (req, res)=>{
 	let group_id = req.body.group_id;
 	let token = req.body.token;
 
-	console.log("Made it here");
 	plaidClient.exchangePublicToken(token, (err, tokenResponse) => {
 		let access_token = tokenResponse.access_token;
 		let item_id = tokenResponse.item_id;
