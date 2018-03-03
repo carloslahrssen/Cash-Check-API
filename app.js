@@ -4,7 +4,6 @@ const app = express();
 const mongoose = require('mongoose');
 const plaid = require('plaid');
 const config = require('./config');
-
 //Initial Connection to the database
 mongoose.connect('mongodb://fsuhacks_database_1/plaid');
 //Initializing plaid API
@@ -20,12 +19,6 @@ const index = require('./routers/index')
 app.use(index);
 app.use(group);
 app.use(users);
-// app.get('/', (req,res) => {
-//     res.json('index');
-// });
-// router.use('/group', group);
-// router.use('/users', users);
-
 
 app.listen(PORT, () => {
 console.log("Listening ..");
