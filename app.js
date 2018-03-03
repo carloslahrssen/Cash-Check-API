@@ -4,6 +4,7 @@ const app = express();
 const mongoose = require('mongoose');
 const plaid = require('plaid');
 const config = require('./config');
+const bodyParser = require('body-parser');
 //Initial Connection to the database
 mongoose.connect('mongodb://fsuhacks_database_1/plaid');
 //Initializing plaid API
@@ -11,6 +12,9 @@ const plaidClient = new plaid.Client(config.CLIENT_ID, config.SECRET, config.PUB
 // Constants
 const PORT = 3000;
 const HOST = '0.0.0.0';
+
+app.use(bodyParser.json()); // for parsing application/json
+app.use(bodyParser.urlencoded({ extended: true }))
 
 const group = require('./routers/group');
 const users = require('./routers/users');
