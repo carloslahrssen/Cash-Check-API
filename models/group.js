@@ -11,6 +11,6 @@ module.exports.addGroup = ((group, callback) => {
 	Groups.create(group, callback);
 });
 
-module.exports.getGroupByTitle = ((title, callback) => {
-	Groups.findOne({'title': title}, callback);
+module.exports.getGroupByTitle = ((group_id, callback) => {
+	Groups.findOne({'group_id': group_id}, callback);
 });
