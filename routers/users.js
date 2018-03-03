@@ -27,29 +27,30 @@ router.post('/users/createUser', (req, res)=>{
 	let name = req.body.name;
 	let group_id = req.body.group_id;
 	let token = req.body.token;
+	let access_token;
+	let item_id;
 
-	plaidClient.exchangePublicToken(token, (err, tokenResponse) => {
-		let access_token = tokenResponse.access_token;
-		let item_id = tokenResponse.item_id;
-		let transactions;
-		plaidClient.getTransactions(access_token,'2018-01-15','2018-02-15',{
-		count: 250,
-		offset: 0
-		} ,(err,result) => {
-			users.push({
-				group_id: group_id,
-				name: name,
-				access_token: access_token,
-				item_id: item_id,
-				transactions: result.transactions
-			});
-			user.addUser(users, (err, user)=>{
-				if(err) res.json(err);
-				res.json(user);
-			});
+	plaidClient.exchangePublicToken(token)
+	.then((tokenResponse)=>{
+		access_token = tokenResponse.access_token;
+		item_id = tokenResponse.item_id;
+		const options = {count: 250, offset: 0}
+		return plaidClient.getTransactions(access_token,'2018-01-15','2018-02-15', options);
+	})
+	.then((result)=>{
+		users.push({
+			group_id: group_id,
+			name: name,
+			access_token: access_token,
+			item_id: item_id,
+			transactions: result.transactions
 		});
-		
+		return user.addUser(users);
+	})
+	.then(()=>{
+		res.json(users);
 	});
+
 });
 
 module.exports = router;
