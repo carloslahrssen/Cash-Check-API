@@ -34,7 +34,7 @@ router.post('/users/createUser', (req, res)=>{
 		let access_token = tokenResponse.access_token;
 		let item_id = tokenResponse.item_id;
 		let transactions;
-		plaidClient.getTransactions(access_token,'2017-01-15','2017-02-15',{
+		plaidClient.getTransactions(access_token,'2018-01-15','2018-02-15',{
 		count: 250,
 		offset: 0
 		} ,(err,result) => {
