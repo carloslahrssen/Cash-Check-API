@@ -4,6 +4,7 @@ const app = express();
 const mongoose = require('mongoose');
 const config = require('./config');
 const bodyParser = require('body-parser');
+const cors = require('cors');
 //Initial Connection to the database
 mongoose.connect('mongodb://fsuhacks_database_1/plaid');
 // Constants
@@ -12,6 +13,13 @@ const HOST = '0.0.0.0';
 
 app.use(bodyParser.json()); // for parsing application/json
 app.use(bodyParser.urlencoded({ extended: true }))
+
+app.use((req, res, next) => {
+    res.header('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Methods', 'GET,PUT,POST,DELETE');
+    res.header('Access-Control-Allow-Headers', 'Content-Type, application/json');
+    next();
+});
 
 const group = require('./routers/group');
 const users = require('./routers/users');
