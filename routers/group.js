@@ -14,7 +14,7 @@ router.post('/groups/createGroup/:_title', (req, res) => {
 	});
 	group.addGroup(groups, (err, group) => {
 		if(err) res.json(err);
-		res.json('Success');
+		res.json(group);
 	});
 
 });
@@ -22,11 +22,10 @@ router.post('/groups/createGroup/:_title', (req, res) => {
 router.get('/groups/getGroup/:_title', (req, res) => {
 	let title = req.params._title;
 
-	group.getGroupByTitle(title, (err, group) => {
-		if(err) res.json(err);
+	group.getGroupByTitle(title, (err, group) =>{
+		if(err) throw err;
 		res.json(group);
 	});
-
 });
 
 module.exports = router;
