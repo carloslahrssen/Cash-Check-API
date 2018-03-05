@@ -20,10 +20,10 @@ Open config.js in any editor and add the following
 
 ```
 module.exports = {
-	CLIENT_ID: '',
-	PUBLIC_KEY: '',
-	SECRET: '',
-	PLAID_ENV: ''
+    CLIENT_ID: '',
+    PUBLIC_KEY: '',
+    SECRET: '',
+    PLAID_ENV: ''
 }
 ```
 After putting and saving your credentials within the config.js file you are ready to start the server!
